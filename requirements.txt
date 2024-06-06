@@ -1,0 +1,7 @@
+flask
+sqlalchemy
+flask_sqlalchemy
+pymysql
+psycopg2-binary
+pyyaml
+mysqlclient==2.1.1
