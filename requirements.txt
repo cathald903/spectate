@@ -4,4 +4,5 @@ flask_sqlalchemy
 pymysql
 psycopg2-binary
 pyyaml
+pytz
 mysqlclient==2.1.1
