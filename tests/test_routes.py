@@ -336,4 +336,4 @@ def test_complex_filter_min(client):
     assert len(res) == 1
     assert "sport_0" in res[0]
     assert "selection_0" in res[0]
-    clear_tables()
+    # clear_tables()

@@ -1,0 +1,244 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Selection",
+    "collectionId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+    "dateExported": "2024-06-12T19:50:15.032Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "7f75f2c0-a38d-4980-ac2b-8ecdfc5d2638",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Create Sport",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 2500,
+            "created": "2024-06-12T17:44:50.290Z",
+            "modified": "2024-06-12T17:59:29.690Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football\",\n  \"Active\":true,\n  \"kind\": \"create\",\n  \"object\": \"Sport\"\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "406010e6-6603-4589-81ed-b48bfda8b35a",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Update Sport",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 5000,
+            "created": "2024-06-12T17:59:17.152Z",
+            "modified": "2024-06-12T17:59:17.152Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football\",\n  \"Active\":false,\n  \"kind\": \"update\",\n  \"object\": \"Sport\"\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "4882bd9c-d99f-4295-8211-ca8f8b31e42a",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Delete Sport",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 12500,
+            "created": "2024-06-12T17:59:53.843Z",
+            "modified": "2024-06-12T18:00:05.306Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football\",\n  \"Active\":false,\n  \"kind\": \"delete\",\n  \"object\": \"Sport\"\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c0ad1f4a-f922-41fb-aa74-3e26b4258bca",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Create Event",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 13750,
+            "created": "2024-06-12T18:01:15.610Z",
+            "modified": "2024-06-12T18:05:24.145Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football Match\",\n  \"Active\":true,\n  \"Type\":\"preplay\",\n  \"Sport\": \"Football\",\n  \"Status\":\"Pending\",\n  \"Scheduled start\": \"2024-06-01T12:34:56Z\",\n  \"kind\": \"create\",\n  \"object\": \"Event\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "5e31ce53-6665-4ae1-b6bf-1abd224839b8",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Update Event",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 14375,
+            "created": "2024-06-12T18:04:41.438Z",
+            "modified": "2024-06-12T18:05:31.066Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football Match\",\n  \"Active\":true,\n  \"Type\":\"preplay\",\n  \"Sport\": \"Football\",\n  \"Status\":\"Started\",\n  \"Scheduled start\": \"2024-06-01T12:34:56Z\",\n  \"kind\": \"update\",\n  \"object\": \"Event\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "68e80f27-2a40-40c4-a6a1-fca9deb6809b",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Delete Event",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 15000,
+            "created": "2024-06-12T18:05:00.260Z",
+            "modified": "2024-06-12T18:05:36.107Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football Match\",\n  \"Active\":true,\n  \"Type\":\"preplay\",\n  \"Sport\": \"Football\",\n  \"Status\":\"Started\",\n  \"Scheduled start\": \"2024-06-01T12:34:56Z\",\n  \"kind\": \"delete\",\n  \"object\": \"Event\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "71b61230-15f7-4205-8446-bbdd3a026504",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Create Selection",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 17500,
+            "created": "2024-06-12T18:06:47.167Z",
+            "modified": "2024-06-12T18:08:42.628Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football Match Selection\",\n  \"Event\": \"Football Match\",\n  \"Price\":1.023,\n  \"Active\":true,\n  \"Outcome\":\"Unsettled\",\n  \"kind\": \"create\",\n  \"object\": \"Selection\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "be20524f-82ca-4866-9dde-aadf7599a5e3",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Query Homepage",
+            "url": "http://localhost:8000/",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-06-12T17:45:17.645Z",
+            "modified": "2024-06-12T17:45:17.646Z",
+            "headers": []
+        },
+        {
+            "_id": "33dfd096-e660-44a3-92c6-2b9e45f43f66",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Update Selection",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 27500,
+            "created": "2024-06-12T18:08:52.283Z",
+            "modified": "2024-06-12T18:09:07.044Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football Match Selection\",\n  \"Event\": \"Football Match\",\n  \"Price\":1.023,\n  \"Active\":true,\n  \"Outcome\":\"Win\",\n  \"kind\": \"update\",\n  \"object\": \"Selection\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "82cacff4-1929-4985-8588-896165a39183",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Delete Selection",
+            "url": "http://localhost:8000/modify_object",
+            "method": "POST",
+            "sortNum": 37500,
+            "created": "2024-06-12T18:09:21.788Z",
+            "modified": "2024-06-12T18:09:34.856Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Name\": \"Football Match Selection\",\n  \"Event\": \"Football Match\",\n  \"Price\":1.023,\n  \"Active\":true,\n  \"Outcome\":\"Win\",\n  \"kind\": \"delete\",\n  \"object\": \"Selection\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "666f5d23-f193-49d5-9a1f-664f8de44aa1",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Complex filter using min",
+            "url": "http://localhost:8000/filter_object",
+            "method": "POST",
+            "sortNum": 47500,
+            "created": "2024-06-12T18:20:53.405Z",
+            "modified": "2024-06-12T19:39:48.447Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"table\": [\n    \"Sport\",\n    \"Selection\"\n  ],\n  \"select_columns\": [\n    \"Name\",\n    \"Name\"\n  ],\n  \"filters\": [\n    [],\n    [\n      {\n        \"filler_col\": \"Active\",\n        \"operation\": \"equal\",\n        \"val\": true\n      }\n    ]\n  ],\n  \"aggregate\": [\n    [],\n    [\n      {\n        \"agg_col\": \"Price\",\n        \"agg_operation\": \"min\",\n        \"operation\": \"lequal\",\n        \"val\": 1.01\n      }\n    ]\n  ]\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2182e5e3-7040-4bcb-9b5c-0ae5f3905087",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Simple filter using equals",
+            "url": "http://localhost:8000/filter_object",
+            "method": "POST",
+            "sortNum": 57500,
+            "created": "2024-06-12T19:36:36.783Z",
+            "modified": "2024-06-12T19:37:01.207Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"table\": \"Sport\",\n  \"select_columns\": \"*\",\n  \"filters\": [\n    {\n      \"filler_col\": \"Active\",\n      \"operation\": \"equal\",\n      \"val\": true\n    }\n  ]\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2ef9479a-b49c-4dcd-8811-456af746b340",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Complex filter using count",
+            "url": "http://localhost:8000/filter_object",
+            "method": "POST",
+            "sortNum": 57500,
+            "created": "2024-06-12T19:45:44.772Z",
+            "modified": "2024-06-12T19:49:38.910Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"table\": [\n    \"Sport\",\n    \"Event\"\n  ],\n  \"select_columns\": [\n    \"Name\",\n    \"\"\n  ],\n  \"filters\": [\n    [],\n    [\n      {\n        \"filler_col\": \"Active\",\n        \"operation\": \"equal\",\n        \"val\": true\n      }\n    ]\n  ],\n  \"aggregate\": [\n    [\n      {\n        \"agg_col\": \"Active\",\n        \"agg_operation\": \"count\",\n        \"operation\": \"gequal\",\n        \"val\": 2\n      }\n    ],\n    [\n      {}\n    ]\n  ]\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "4a0ca52d-78c5-4846-8edd-3712dc609ceb",
+            "colId": "75ceaa4a-b516-41bb-a7a1-4cc841301e95",
+            "containerId": "",
+            "name": "Simple filter using equals  and Active",
+            "url": "http://localhost:8000/filter_object",
+            "method": "POST",
+            "sortNum": 67500,
+            "created": "2024-06-12T19:38:13.590Z",
+            "modified": "2024-06-12T19:38:31.361Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"table\": \"Sport\",\n  \"select_columns\": \"*\",\n  \"filters\": [\n    {\n      \"filler_col\": \"Active\",\n      \"operation\": \"equal\",\n      \"val\": true\n    },\n    {\n      \"filler_col\": \"Name\",\n      \"operation\": \"equal\",\n      \"val\": \"sport_0\"\n    }\n  ]\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "bNqs8GHKqOqXir1d8cetGm6Q28d872Xki6CtaR9qIz3007tTjUiP4CFoxE9IWlwMTBX4D4JO8xWpvSo7-XtZUA"
+}
