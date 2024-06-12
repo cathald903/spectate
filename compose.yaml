@@ -25,6 +25,15 @@ services:
       - mysqlcomposenetwork
     depends_on:
       - db
+  tests:
+    build: .
+    command: sh -c "pytest tests || tail -f /dev/null"
+    volumes:
+      - .:/app
+    networks:
+      - mysqlcomposenetwork
+    depends_on:
+      - web
 
 networks:
   mysqlcomposenetwork:
