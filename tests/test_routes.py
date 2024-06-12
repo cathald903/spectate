@@ -61,24 +61,6 @@ def generic_modify_object_test(client, tab, name, json_data):
     return res
 
 
-def make_sport(client, test_sport):
-    """
-    Inserting dummy row for sports
-    """
-    return generic_modify_object_test(
-        client, 'Sport', test_sport, get_json([test_sport, True, 'create'], 'Sport'))[0]
-
-
-def make_event(client, test_event, test_sport):
-    """
-    Inserting dummy row for Events
-    """
-    json_data = get_json(
-        [test_event, True, 'preplay', test_sport, 'Pending', '2024-06-11T12:34:56Z', 'create'], 'Event')
-    return generic_modify_object_test(
-        client, 'Event', test_event, json_data)[0]
-
-
 def test_modify_object_sport(client):
     """
     Testing the outcomes of creating,updating and deleting a Sport
@@ -192,16 +174,33 @@ def test_modify_object_Selection(client):
     assert res == []
 
 
+def create_test_data(client):
+    test_sport = 'sport_'
+    for i in range(5):
+        generic_modify_object_test(
+            client, 'Sport', test_sport+str(i), get_json([test_sport+str(i), True, 'create'], 'Sport'))
+    test_event = "event_"
+    dates = ["0"+str(i) if len(str(i)) == 1 else str(i) for i in range(1, 16)]
+    for i in range(15):
+        event_json_data = get_json(
+            [test_event+str(i), [True, False][i % 2], 'preplay', test_sport+str(i % 5), 'Pending', f"2024-06-{dates[i]}T12:34:56Z", 'create'], 'Event')
+        generic_modify_object_test(
+            client, 'Event', test_event+str(i), event_json_data)
+    test_selection = "selection_"
+    prices = ["1.0"+str(i) if len(str(i)) == 1 else "1."+str(i)
+              for i in range(1, 31)]
+    for i in range(30):
+        selection_json_data = get_json(
+            [test_selection+str(i), test_event+str(i % 15), float(prices[i]), [True, False][i % 2], "Unsettled", 'create'], 'Selection')
+        generic_modify_object_test(
+            client, 'Selection', test_selection+str(i), selection_json_data)
+
+
 def test_filter_object_by_active(client):
     """
     will test if filters are operating as expected
     """
-    clear_tables()
-    declare_tables()
-    test_sport = 'sport_'
-    for i in range(5):
-        generic_modify_object_test(
-            client, 'Sport', test_sport+str(i), get_json([test_sport+str(i), [True, False][i % 2], 'create'], 'Sport'))
+    create_test_data(client)
     filt = {
         "table": "Sport",
         "select_columns": "*",
@@ -220,36 +219,25 @@ def test_filter_object_by_active(client):
 
 
 def test_filter_object_by_Name(client):
-    test_sport = 'sport_'
-    for i in range(5):
-        generic_modify_object_test(
-            client, 'Sport', test_sport+str(i), get_json([test_sport+str(i), [True, False][i % 2], 'create'], 'Sport'))
+    create_test_data(client)
     filt = {
-        "table": "Sport",
+        "table": "Selection",
         "select_columns": "*",
         "filters": [
             {
                 "filler_col": "Name",
                 "operation": "equal",
-                "val": "Sport_0"
+                "val": "selection_0"
             }
         ]
     }
     rv = client.post('/filter_object', json=filt)
     res = json.loads(rv.data)
-    assert "sport_0" in res[0]
+    assert "selection_0" in res[0]
 
 
 def test_filter_object_by_tz(client):
-    test_sport = 'sport_0'
-    generic_modify_object_test(client, 'Sport', test_sport, get_json([
-                               test_sport, True, 'create'], 'Sport'))
-    test_event = 'Event_'
-    for i in range(5):
-        event_json_data = get_json(
-            [test_event+str(i), True, 'preplay', test_sport, 'Pending', f"2024-0{str(4+i)}-11T12:34:56Z", 'create'], 'Event')
-        generic_modify_object_test(
-            client, 'Event', test_event+str(i), event_json_data)
+    create_test_data(client)
     filt = {
         "table": "Event",
         "select_columns": "*",
@@ -274,19 +262,11 @@ def test_filter_object_by_tz(client):
     }
     rv = client.post('/filter_object', json=filt)
     res = json.loads(rv.data)
-    assert len(res) == 2
+    assert len(res) == 8
 
 
-def test_complex_filter(client):
-    test_sport = 'sport_0'
-    generic_modify_object_test(client, 'Sport', test_sport, get_json([
-                               test_sport, True, 'create'], 'Sport'))
-    test_event = 'Event_'
-    for i in range(5):
-        event_json_data = get_json(
-            [test_event+str(i), [True, False][i % 2], 'preplay', test_sport, 'Pending', f"2024-0{str(4+i)}-11T12:34:56Z", 'create'], 'Event')
-        generic_modify_object_test(
-            client, 'Event', test_event+str(i), event_json_data)
+def test_complex_filter_count(client):
+    create_test_data(client)
     filt = {
         "table": [
             "Sport",
@@ -318,4 +298,40 @@ def test_complex_filter(client):
     rv = client.post('/filter_object', json=filt)
     res = json.loads(rv.data)[0]
     assert "sport_0" in res
-    assert 3 == res[1]
+    assert 2 == res[1]
+
+
+def test_complex_filter_min(client):
+    create_test_data(client)
+    filt = {
+        "table": [
+            "Sport",
+            "Selection"
+        ],
+        "select_columns": [
+            "Name",
+            "Name"
+        ],
+        "filters": [
+            [],
+            [{
+                "filler_col": "Active",
+                "operation": "equal",
+                "val": True
+            },
+            ]
+        ],
+        "aggregate": [
+            [],
+            [{
+                "agg_col": "Price",
+                "agg_operation": "min",
+                "operation": "lequal",
+                "val": 1.01
+            }]
+        ]
+    }
+    rv = client.post('/filter_object', json=filt)
+    res = json.loads(rv.data)
+    print(res)
+    assert res

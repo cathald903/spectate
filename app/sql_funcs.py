@@ -11,21 +11,33 @@ from .tables import determine_tab_class
 ##############################
 
 
-def get_sql_group(table_list: list, is_complex: bool = None):
+def get_sql_group(table_list: list, col_list: list, is_complex: list = None):
     """
     Creating the group by clauses for an sql statement by defaulitng to grouping
     on the primary key of the table as defined in it's Class
     """
     joiner = " "
     group_by_str = ""
-    if is_complex:
-        table_list = [table_list[0]]
-    for tab in table_list:
+    for tab, col in list(zip(table_list, col_list)):
         tab_obj = determine_tab_class(tab)
         if is_complex:
-            group_by_str += f"{joiner}{tab_obj.shorthand}.{tab_obj.pkey}"
+            shorthand = tab_obj.shorthand
         else:
-            group_by_str += f"{joiner}{tab_obj.pkey}"
+            shorthand = ""
+        clist = col.split(",")
+        if len(clist) > 1:
+            loop_joiner = joiner
+            for c in clist:
+                group_by_str += f"{loop_joiner}{shorthand}.{c}"
+                loop_joiner = ","
+        else:
+            c = clist[0]
+            if c == "*":
+                group_by_str += f"{joiner}{shorthand}.{tab_obj.pkey}"
+            elif c != "":
+                group_by_str += f"{joiner}{shorthand}.{c}"
+            else:
+                group_by_str += ""
         joiner = ","
     return group_by_str
 
@@ -62,7 +74,7 @@ def simple_sqlify(filters: dict, joiner: str = " "):
     return where
 
 
-def get_simple_sqlify_aggregate(aggregate: list, joiner: str, col_str: str, is_complex: bool = None):
+def get_simple_sqlify_aggregate(aggregate: list, joiner: str, col_str: str):
     """
     Creating the having clauses for sql statements by referencing
     a predefined dictionary of  user input -> sql aggreagators
@@ -76,12 +88,8 @@ def get_simple_sqlify_aggregate(aggregate: list, joiner: str, col_str: str, is_c
         "min": "MIN",
         "max": "MAX"
     }
-    if is_complex:
-        agg_col_name = f"{aggregate['agg_operation']}_{aggregate['agg_col'].split('.')[1]}"
-    else:
-        agg_col_name = f"{aggregate['agg_operation']}_{aggregate['agg_col']}"
-    col_str += f""",{sql_aggregators[aggregate['agg_operation']]}({aggregate['agg_col']})
-      as {agg_col_name}"""
+    agg_col_name = f"""{sql_aggregators[aggregate['agg_operation']]}({aggregate['agg_col']})"""
+    col_str += f""",{agg_col_name}"""
     value = aggregate['val']
     if isinstance(value, str):
         value = f"'{value}'"
@@ -127,7 +135,7 @@ def get_complex_joins(table_list: list, lead_tab: str, tab_obj: object):
         join_list = []
         for tab in table_list:
             join_list.append(f""" {tab_obj.link_to[tab]} """)
-        return ",".join(join_list)
+        return " ".join(join_list)
 
 
 def get_complex_from(table_list: list):
@@ -169,7 +177,7 @@ def get_complex_agg(table_list: list, agg_list, col_str: str):
                 tab_obj = determine_tab_class(tab)
                 aggregate['agg_col'] = f"{tab_obj.shorthand}.{aggregate['agg_col']}"
                 ag_string, col_str = get_simple_sqlify_aggregate(
-                    aggregate, joiner, col_str, True)
+                    aggregate, joiner, col_str)
                 agg_str += ag_string
                 joiner = " AND "
     return [agg_str, col_str]
@@ -189,16 +197,21 @@ def complex_sqlify(filters: dict):
     """
     else:
         where_str = ""
-    group_by = f"""GROUP BY {get_sql_group(filters['table'],True)}"""
-    agg_str, col_str = get_complex_agg(
-        filters['table'], filters['aggregate'], col_str)
-    agg_str = f"""HAVING {agg_str}"""
+    group_by = f"""GROUP BY {get_sql_group(filters['table'],filters['select_columns'],True)}"""
+    if 'aggregate' in filters.keys():
+        agg_str, col_str = get_complex_agg(
+            filters['table'], filters['aggregate'], col_str)
+        agg_str = f"""HAVING {agg_str}"""
+    else:
+        agg_str = ""
+
     cmd = f""" Select
         {col_str}
         {filter_str}
         {where_str}
         {group_by}
         {agg_str}"""
+    print(cmd)
     return select_query(cmd)
 
 
@@ -224,7 +237,7 @@ def sqlify(request_dict: dict):
             where_str = ""
         group_by = ""
         if 'aggregate' in request_dict.keys():
-            group_by = f"""GROUP BY {get_sql_group([request_dict['table']])}"""
+            group_by = f"""GROUP BY {get_sql_group([request_dict['table']],[request_dict['select_columns']])}"""
             joiner = " "
             for aggregate in request_dict['aggregate']:
                 agg_str, col_str = get_simple_sqlify_aggregate(

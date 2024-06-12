@@ -85,7 +85,7 @@ class Sport():
     shorthand = "s"
     link_to = {"Event": f"join Event e ON  {shorthand}.Name=e.Sport",
                "Selection": f"""join Event e ON  
-               {shorthand}.Name = e.Sport,
+               {shorthand}.Name = e.Sport
                join Selection se ON  e.Name = se.Event """}
     pkey = 'Name'
 
@@ -202,7 +202,7 @@ class Selection():
     shorthand = "se"
     link_to = {"Event": f"join Event e ON  {shorthand}.Event=e.Name",
                "Sport": f"""join Event e ON
-               {shorthand}.Event = e.Name,
+               {shorthand}.Event = e.Name
                join Sport s ON  e.Event = s.Name """}
     pkey = 'Name'
 
