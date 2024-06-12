@@ -37,6 +37,7 @@ Name is the primary key and can't change
 }
 ``` 
 
+
 ### Event
 #### Assumptions
 Scheduled start is passed in with a space between the names as that is what the doc defined, so the Flask app has to handle that
@@ -67,6 +68,10 @@ Price can be given as any float but the flask app must round it to two decimal p
 }
 ```
 
+The response for all of the queries looks like the below \
+![alt text](/images/create_test.png)
+
+
 ## Filters
 *NOTE: thunder-collection_Selection.json contains ready to go sample api calls*
 ### Simple vs Complex
@@ -87,6 +92,8 @@ A filter looks like this
   ]
 }
 ```
+![alt text](images/equals_test.png)
+
 multiple filters for a given table can be attached by adding another dict to the filters list
 
 ```
@@ -108,6 +115,8 @@ multiple filters for a given table can be attached by adding another dict to the
 }
 
 ```
+![alt text](images/equals_and_active_test.png)
+
 #### More Complex Examples
 By turning the columns into lists of lists we can now make them complex. \
 The order of the table names in the `table` field is the order their accompanying `select_columns`,`filters` and `aggreagate` fields must be in. \
@@ -149,7 +158,7 @@ The order of the table names in the `table` field is the order their accompanyin
   ]
 }
 ```
-
+![alt text](/images/count_test.png)
 #### filter to get the Sports that have an active selection with price less than or equal to a given number
 *NOTE: was seeing some rounding issues here, things like equal as the operator not reutrning 1.01 but <= would*
 ```
@@ -185,3 +194,4 @@ The order of the table names in the `table` field is the order their accompanyin
   ]
 }
 ```
+![alt text](/images/min_test.png)
