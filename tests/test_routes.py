@@ -333,5 +333,7 @@ def test_complex_filter_min(client):
     }
     rv = client.post('/filter_object', json=filt)
     res = json.loads(rv.data)
-    print(res)
-    assert res
+    assert len(res) == 1
+    assert "sport_0" in res[0]
+    assert "selection_0" in res[0]
+    clear_tables()

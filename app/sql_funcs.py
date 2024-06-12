@@ -211,7 +211,6 @@ def complex_sqlify(filters: dict):
         {where_str}
         {group_by}
         {agg_str}"""
-    print(cmd)
     return select_query(cmd)
 
 
