@@ -36,6 +36,5 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8000
 
+ENV PYTHONPATH=/app
 ENV FLASK_APP='rest_app.py'
-# Run the application.
-#CMD python3 -m flask run --host=0.0.0.0 --port=8000 --debug

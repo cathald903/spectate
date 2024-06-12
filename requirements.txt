@@ -5,4 +5,5 @@ pymysql
 psycopg2-binary
 pyyaml
 pytz
+pytest
 mysqlclient==2.1.1
